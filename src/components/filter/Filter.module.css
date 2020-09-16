@@ -1,0 +1,12 @@
+.phonebook__label {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 300px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.phonebook__input {
+  margin-top: 10px;
+}
