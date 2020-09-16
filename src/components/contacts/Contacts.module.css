@@ -1,5 +1,5 @@
 .contacts {
-  width: 400px;
+  width: 480px;
 }
 
 .contacts__item {
@@ -9,17 +9,30 @@
   align-items: center;
 }
 
+.contact__text {
+  font-weight: 600;
+  color: crimson;
+}
+
+.contact__part {
+  display: inline-block;
+  margin-right: 20px; /* width: calc(100% / 2); */
+}
+
 .btn {
   width: 130px;
   height: 30px;
   background-color: #fff;
-  border: 2px solid #2196f3;
-  border-radius: 3px;
+  font-weight: bold;
+  border: 2px solid crimson;
+  border-radius: 5px;
+  color: crimson;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 .btn:hover,
 .btn:focus {
   color: white;
-  background-color: #2196f3;
+  background-color: crimson;
   cursor: pointer;
 }

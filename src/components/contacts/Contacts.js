@@ -8,8 +8,8 @@ const Contacts = ({ contacts, onDeleteBtnClick }) => {
     <ul className={styles.contacts}>
       {contacts.map(({ name, number, id }) => (
         <li key={uuidv4()} className={styles.contacts__item}>
-          <p>
-            <span>{name}: </span>
+          <p className={styles.contact__text}>
+            <span className={styles.contact__part}>{name}: </span>
             <span>{number}</span>
           </p>
           <button className={styles.btn} onClick={() => onDeleteBtnClick(id)}>

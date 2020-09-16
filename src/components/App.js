@@ -64,16 +64,16 @@ class App extends React.Component {
     const filteredContacts = this.getFilteredContacts();
 
     return (
-      <>
-        <h1>Phonebook</h1>
+      <div id="content">
+        <h1 id="title">Phonebook</h1>
         <Form onSubmit={this.addContact} />
-        <h2>Contacts</h2>
+        <h2 id="text">Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
         <Contacts
           contacts={filteredContacts}
           onDeleteBtnClick={this.deleteContact}
         />
-      </>
+      </div>
     );
   }
 }
