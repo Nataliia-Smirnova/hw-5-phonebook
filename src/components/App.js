@@ -18,8 +18,27 @@ class App extends React.Component {
     filter: '',
     showAlert: false,
     showInfo: false,
-    isMounted: true,
+    isMounted: false,
+    cMounted: false,
   };
+
+  componentDidMount() {
+    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+    if (parsedContacts.length > 1) {
+      this.setState({ isMounted: true });
+    }
+    this.setState({ cMounted: true });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      this.setState({ isMounted: false, cMounted: false });
+    }
+  }
 
   addContact = ({ name, number }) => {
     const { contacts } = this.state;
@@ -56,32 +75,8 @@ class App extends React.Component {
     );
   };
 
-  componentDidMount() {
-    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-    // this.setState({ isMounted: true });
-    // if (this.state.contacts.length > 1) {
-    //   return;
-    // } else {
-    //   this.setState({ isMounted: false });
-    // }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-      if (this.state.contacts.length > 1) {
-        return;
-      } else {
-        this.setState({ isMounted: false });
-      }
-    }
-  }
-
   render() {
-    const { filter } = this.state;
+    const { filter, cMounted } = this.state;
     const filteredContacts = this.getFilteredContacts();
 
     return (
@@ -101,29 +96,19 @@ class App extends React.Component {
           info={this.state.showInfo}
         />
         <h2 id="text">Contacts</h2>
-        {/* <CSSTransition
-          in={this.state.contacts.length > 1}
-          classNames="filter"
-          timeout={500}
-          unmountOnExit
-        >
-          <Filter value={filter} onChange={this.changeFilter} />
-        </CSSTransition> */}
         <CSSTransition
-          in={this.state.contacts.length > 1 && !this.state.isMounted}
+          in={this.state.contacts.length > 1}
           classNames={this.state.isMounted ? 'filter-appear' : 'filter'}
-          appear={!this.state.isMounted}
+          // appear={this.state.isMounted}
           timeout={500}
           unmountOnExit
         >
           <Filter value={filter} onChange={this.changeFilter} />
         </CSSTransition>
-        {/* {this.state.contacts.length > 1 && (
-          <Filter value={filter} onChange={this.changeFilter} />
-        )} */}
         <Contacts
           contacts={filteredContacts}
           onDeleteBtnClick={this.deleteContact}
+          mounted={cMounted}
         />
       </div>
     );

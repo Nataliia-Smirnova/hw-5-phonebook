@@ -1,15 +1,17 @@
 import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import styles from './Contacts.module.css';
 
-const Contacts = ({ contacts, onDeleteBtnClick }) => {
+const Contacts = ({ contacts, onDeleteBtnClick, mounted }) => {
   return (
     <TransitionGroup component="ul" className={styles.contacts}>
       {contacts.map(({ name, number, id }) => (
-        <CSSTransition key={id} timeout={300} classNames="contactItem-fade">
+        <CSSTransition
+          key={id}
+          timeout={300}
+          classNames={mounted ? 'contactItem-appear' : 'contactItem-fade'}
+        >
           <li key={id} className={styles.contacts__item}>
             <p className={styles.contact__text}>
               <span className={styles.contact__part}>{name}: </span>

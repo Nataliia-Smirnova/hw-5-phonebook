@@ -95,11 +95,13 @@ body {
   transition: all 500ms linear;
 }
 
-.filter-appear {
+.filter-appear,
+.contactItem-appear {
   opacity: 0;
 }
 
-.filter-appear-active {
+.filter-appear-active,
+.contactItem-appear-active {
   opacity: 1;
   transition: opacity 500ms linear;
 }
