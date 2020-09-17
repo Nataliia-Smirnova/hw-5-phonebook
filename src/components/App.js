@@ -45,16 +45,16 @@ class App extends React.Component {
     const contact = { id: uuidv4(), name, number };
     const sameContact = contacts.find(contact => contact.name === name);
 
-    if (sameContact) {
+    if (!name || !number) {
+      this.setState({ showInfo: true });
+      setTimeout(() => this.setState({ showInfo: false }), 3000);
+    } else if (sameContact) {
       this.setState({ showAlert: true });
       setTimeout(() => this.setState({ showAlert: false }), 3000);
     } else if (name && number) {
       this.setState(prevState => ({
         contacts: [contact, ...prevState.contacts],
       }));
-    } else {
-      this.setState({ showInfo: true });
-      setTimeout(() => this.setState({ showInfo: false }), 3000);
     }
   };
 
