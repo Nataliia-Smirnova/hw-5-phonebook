@@ -1,4 +1,5 @@
 import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import styles from './Form.module.css';
 
@@ -53,6 +54,22 @@ class Form extends React.Component {
         <button type="submit" className={styles.btn}>
           Add contact
         </button>
+        <CSSTransition
+          in={this.props.alert}
+          classNames="alert"
+          timeout={500}
+          unmountOnExit
+        >
+          <p className={styles.alert}>Contact already exists!</p>
+        </CSSTransition>
+        <CSSTransition
+          in={this.props.info}
+          classNames="info"
+          timeout={500}
+          unmountOnExit
+        >
+          <p className={styles.info}>Fill both fields please</p>
+        </CSSTransition>
       </form>
     );
   }
