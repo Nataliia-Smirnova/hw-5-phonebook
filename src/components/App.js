@@ -23,13 +23,15 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (parsedContacts) {
+    const lsContacts = localStorage.getItem('contacts');
+    if (lsContacts) {
+      const parsedContacts = JSON.parse(lsContacts);
       this.setState({ contacts: parsedContacts });
+      if (parsedContacts.length > 1) {
+        this.setState({ isMounted: true });
+      }
     }
-    if (parsedContacts.length > 1) {
-      this.setState({ isMounted: true });
-    }
+
     this.setState({ cMounted: true });
   }
 
@@ -47,10 +49,10 @@ class App extends React.Component {
 
     if (!name || !number) {
       this.setState({ showInfo: true });
-      setTimeout(() => this.setState({ showInfo: false }), 3000);
+      setTimeout(() => this.setState({ showInfo: false }), 1500);
     } else if (sameContact) {
       this.setState({ showAlert: true });
-      setTimeout(() => this.setState({ showAlert: false }), 3000);
+      setTimeout(() => this.setState({ showAlert: false }), 1500);
     } else if (name && number) {
       this.setState(prevState => ({
         contacts: [contact, ...prevState.contacts],
